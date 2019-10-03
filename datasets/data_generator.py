@@ -1,5 +1,6 @@
-import numpy as np
 import pandas as pd
+import numpy as np
+from tqdm import tqdm
 import random
 
 # read all source datasets
@@ -32,20 +33,40 @@ def add_variation(val):
 
 # set number of synthetic samples
 samples = 2000
-timestamps_per_sample = 11
-samples_original = data.shape[0] // timestamps_per_sample
+timesteps = 11
+samples_original = data.shape[0] // timesteps
 appended_synthetic_data = []
 
 # generate [samples] samples from the existing dataset
-for i in range(samples):
+for i in tqdm(range(samples)):
     for idx in range(samples_original):
-        start = idx * timestamps_per_sample
-        end = (idx + 1) * timestamps_per_sample
+        start = idx * timesteps
+        end = (idx + 1) * timesteps
         new_data = data.iloc[start: end].copy()
         new_data.loc[:, 'A':'F'] = new_data.loc[:, 'A':'F'].applymap(add_variation)
         appended_synthetic_data.append(new_data)
 
 # shuffle data and transform to dataframe
+random.shuffle(appended_synthetic_data)
+synthetic_data = pd.concat(appended_synthetic_data)
+
+# select candidate indexes that are not divisible by [timesteps]
+no_choice_samples = 2000
+rows = samples * timesteps * samples_original
+indexes = np.arange(rows)
+indexes = indexes[indexes % timesteps != 0]
+indexes = np.random.choice(indexes, no_choice_samples, replace=False)
+
+# create dataframes with indexes that don't start
+# at indexes divisible by [timesteps]
+for i in tqdm(range(no_choice_samples)):
+    start = indexes[i]
+    end = start + timesteps
+    window = synthetic_data.iloc[start:end].copy()
+    appended_synthetic_data.append(window)
+
+# shuffle data and transform to dataframe
+# this time including samples with no detected gesture
 random.shuffle(appended_synthetic_data)
 synthetic_data = pd.concat(appended_synthetic_data)
 
