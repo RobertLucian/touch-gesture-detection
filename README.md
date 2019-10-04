@@ -1,5 +1,5 @@
-# touch-gesture-detection
-A concept library on detecting gestures from an array of touch sensors
+# touch-gesture-detection [![Build Status](https://travis-ci.org/RobertLucian/touch-gesture-detection.svg?branch=master)](https://travis-ci.org/RobertLucian/touch-gesture-detection)
+A concept library for detecting gestures from an array of touch sensors
 
 ## Development
 
