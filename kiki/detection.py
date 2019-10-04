@@ -7,7 +7,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.metrics import categorical_accuracy
 
-PACKAGE_NAME = 'kik'
+PACKAGE_NAME = 'kiki'
 
 def get_resource_path(relative_path):
     FILENAME_PATH = pkg_resources.resource_filename(PACKAGE_NAME, relative_path)
