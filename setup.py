@@ -3,6 +3,8 @@ import setuptools
 with open('requirements.txt') as fp:
     install_requires = fp.read()
 
+print(type(install_requires))
+
 setuptools.setup(
     name='kiki',
     version='0.1.0',
@@ -20,5 +22,6 @@ setuptools.setup(
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python :: 3.7',
         'Topic :: Scientific/Engineering'
-    ]
+    ],
+    include_package_data=True
 )

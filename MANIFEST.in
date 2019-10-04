@@ -1,0 +1,2 @@
+include kiki/models/*
+include kiki/datasets/*.csv
