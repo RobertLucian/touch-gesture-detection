@@ -61,7 +61,7 @@ class TestPretrainedModel(unittest.TestCase):
         total = end - start
         period = total / self.samples
 
-        self.assertLessEqual(period, 0.005, f'It took {period} seconds to run a sample, which is more than 0.005 seconds.')
+        self.assertLessEqual(period, 0.025, f'It took {period} seconds to run a sample, which is more than 0.025 seconds.')
 
 
 if __name__ == '__main__':
