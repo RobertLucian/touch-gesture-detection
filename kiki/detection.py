@@ -2,7 +2,7 @@ import pandas as pd
 import tensorflow as tf
 import keras
 import pkg_resources
-from keras.models import Sequential
+from keras.models import Sequential, model_from_json
 from keras.layers import Dense
 from keras.layers import LSTM
 from keras.metrics import categorical_accuracy
@@ -13,11 +13,21 @@ def get_resource_path(relative_path):
     FILENAME_PATH = pkg_resources.resource_filename(PACKAGE_NAME, relative_path)
     return FILENAME_PATH
 
-def load_pretrained_model(model):
-    return None
+def load_pretrained_model(model_path, inpackage_data=False):
+    if inpackage_data:
+        model_path = get_resource_path(model_path)
+
+    with open(model_path + '.json', 'r') as f:
+        loaded_json = f.read()
+    loaded_model = model_from_json(loaded_json)
+    loaded_model.load_weights(model_path + '.h5')
+
+    return loaded_model
+
 
 def train_touchsensor_model(
         dataset='datasets/generated_dataset.csv',
+        inpackage_data=True,
         timesteps=11,
         features=6,
         batch_size=64,
@@ -34,7 +44,10 @@ def train_touchsensor_model(
 
     # read the dataset
     print('Read touchsensor dataset')
-    file = get_resource_path(dataset)
+    if inpackage_data:
+        file = get_resource_path(dataset)
+    else:
+        file = dataset
     data = pd.read_csv(file)
 
 
