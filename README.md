@@ -1,4 +1,4 @@
-# Touch Gesture Detection [![Build Status](https://travis-ci.org/RobertLucian/touch-gesture-detection.svg?branch=master)](https://travis-ci.org/RobertLucian/touch-gesture-detection) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://robertlucian.mit-license.org)
+# Touch Gesture Detection [![Build Status](https://travis-ci.org/RobertLucian/touch-gesture-detection.svg?branch=master)](https://travis-ci.org/RobertLucian/touch-gesture-detection) 
 A concept library for detecting gestures from an array of touch sensors (and possibly other sensors as well).
 
 ## Installing
