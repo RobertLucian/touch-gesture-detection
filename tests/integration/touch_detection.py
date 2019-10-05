@@ -53,10 +53,9 @@ class TestPretrainedModel(unittest.TestCase):
         """
 
         start = time()
-        _, acc = self.model.evaluate(
+        self.model.predict(
             self.x_validation,
-            self.y_validation,
-            batch_size=self.samples)
+            batch_size=1)
         end = time()
         total = end - start
         period = total / self.samples
