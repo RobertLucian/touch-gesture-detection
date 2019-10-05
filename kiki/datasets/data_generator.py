@@ -8,11 +8,14 @@ source_files = [
     'double_tapping.csv',
     'tapping.csv',
     'horizontal_swipe.csv',
-    'vertical_swipe.csv'
+    'vertical_swipe.csv',
+    'slapping.csv'
 ]
+
+print("Aggregating datasets")
 appended_data = []
 for file in source_files:
-    print(file)
+    print(f"Adding '{file}' dataset to pool")
     appended_data.append(pd.read_csv(file))
 data = pd.concat(appended_data, sort=False)
 
@@ -38,6 +41,7 @@ samples_original = data.shape[0] // timesteps
 appended_synthetic_data = []
 
 # generate [samples] samples from the existing dataset
+print("Shuffling and adding variation while creating the synthetic dataset")
 for i in tqdm(range(samples)):
     for idx in range(samples_original):
         start = idx * timesteps
@@ -51,7 +55,7 @@ random.shuffle(appended_synthetic_data)
 synthetic_data = pd.concat(appended_synthetic_data)
 
 # select candidate indexes that are not divisible by [timesteps]
-no_choice_samples = 2000
+no_choice_samples = 2200
 rows = samples * timesteps * samples_original
 indexes = np.arange(rows)
 indexes = indexes[indexes % timesteps != 0]
@@ -59,6 +63,7 @@ indexes = np.random.choice(indexes, no_choice_samples, replace=False)
 
 # create dataframes with indexes that don't start
 # at indexes divisible by [timesteps]
+print("Adding samples that map to no action")
 for i in tqdm(range(no_choice_samples)):
     start = indexes[i]
     end = start + timesteps
@@ -71,4 +76,5 @@ random.shuffle(appended_synthetic_data)
 synthetic_data = pd.concat(appended_synthetic_data)
 
 # and write it off to the disk
+print("Saving the generated dataset to disk")
 synthetic_data.to_csv('generated_dataset.csv', index=False)

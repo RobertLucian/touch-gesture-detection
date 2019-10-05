@@ -8,6 +8,7 @@
         "config": {
           "name": "lstm_1",
           "trainable": true,
+          "dtype": "float32",
           "return_sequences": false,
           "return_state": false,
           "go_backwards": false,
@@ -15,7 +16,7 @@
           "unroll": false,
           "units": 32,
           "activation": "tanh",
-          "recurrent_activation": "hard_sigmoid",
+          "recurrent_activation": "sigmoid",
           "use_bias": true,
           "kernel_initializer": {
             "class_name": "VarianceScaling",
@@ -47,7 +48,7 @@
           "bias_constraint": null,
           "dropout": 0.1,
           "recurrent_dropout": 0.1,
-          "implementation": 1
+          "implementation": 2
         }
       },
       {
@@ -55,6 +56,7 @@
         "config": {
           "name": "dense_1",
           "trainable": true,
+          "dtype": "float32",
           "units": 7,
           "activation": "softmax",
           "use_bias": true,
@@ -85,6 +87,6 @@
       6
     ]
   },
-  "keras_version": "2.2.4",
+  "keras_version": "2.3.0",
   "backend": "tensorflow"
 }
