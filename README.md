@@ -28,7 +28,7 @@ of a file that resides in the `kiki` package. Must use a relative path for it.
 `kiki.detection.save_trained_model` - function to save a model and its weights to the disk.
 
 `kiki.detection.load_pretrained_model` - function to load a pre-trained model.
-Can specify whether the given path to the dataset is for a in-packaged model 
+Can specify whether the given path to the dataset is for an in-packaged model 
 or just another that's coming out of it.
 
 `kiki.detection.train_touchsensor_model` - function to train the touch-gesture
