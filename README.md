@@ -36,7 +36,7 @@ detection mechanism. Takes in a dataset and sets some important hyper-parameters
 This function should be deprecated at some point and instead have the process of training new
 models streamlined. To train new motions, just add more data to the dataset.
 
-To see the parameters of these functions, check the embedded docstrings of each one.
+To see the parameters of these functions, check the embedded docstrings from each one.
 
 ## Dataset
 
@@ -77,6 +77,6 @@ load_pretrained_model('models/touch', inpackage_data=True)
 This both loads the model of the neural network and the weights associated with it.
 
 The neural network is comprised of an LSTM layer of 32 units and a dense layer with the same
-number of neurons as there are features - currently 6 of them. The model returned is a 
+number of neurons as there are features - currently 6 of them. The returned model is a 
 keras [model](https://keras.io/models/model/). The test accuracy is as of this moment at 100%,
 which should be expected from a dataset that is almost ideal and has almost no noise.
