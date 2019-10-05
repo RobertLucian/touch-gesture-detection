@@ -10,10 +10,27 @@ from keras.metrics import categorical_accuracy
 PACKAGE_NAME = 'kiki'
 
 def get_resource_path(relative_path):
+    """
+    Get the absolute path to a given resource within the Python package.
+
+    :param relative_path: A path to a resource (model, datasets).
+    I.e "datasets/hitting.csv" or "models/touch.json".
+    :return: The absolute path.
+    """
     FILENAME_PATH = pkg_resources.resource_filename(PACKAGE_NAME, relative_path)
     return FILENAME_PATH
 
 def load_pretrained_model(model_path, inpackage_data=False):
+    """
+    Load a pre-trained model.
+
+    :param model_path: Relative path to an in-built resource of the package
+    or an absolute path. Both the model and the weights must have the same name
+    i.e "generic_model.json" and "generic_model.h5". When passing the argument,
+    don't add the extension of it, because we're referring to two related files.
+    :param inpackage_data: If the data is located within the package or not.
+    :return: A keras.models.Model model.
+    """
     if inpackage_data:
         model_path = get_resource_path(model_path)
 
@@ -35,6 +52,21 @@ def train_touchsensor_model(
         epochs=30,
         cuda_gpu=False
 ):
+    """
+    Train the neural network against the dataset containing gesture/motion recordings.
+    The model of the neural network is already designed to be used with this kind of data.
+
+    :param dataset: Relative path to an in-package resource or an absolute path.
+    :param inpackage_data: Whether the data is located within the package.
+    :param timesteps: How many timesteps there are in a single sample.
+    :param features: Number of features taken into consideration for each sample.
+    :param batch_size: After how many predictions the weights get updated.
+    :param lstm_units: Number of how many LSTM memory units there are.
+    :param epochs: Number of epochs the neural network gets trained for.
+    :param cuda_gpu: Whether to use an Nvidia GPU or not. Must have backend support for GPU,
+    like use tensorflow-gpu for instance.
+    :return: Model, score and accuracy.
+    """
     # use gpu if enabled and available
     if cuda_gpu:
         config = tf.ConfigProto( device_count = {'GPU': 1 , 'CPU': 6} )
