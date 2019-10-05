@@ -13,7 +13,8 @@ class TestPretrainedModel(unittest.TestCase):
             'datasets/horizontal_swipe.csv',
             'datasets/vertical_swipe.csv',
             'datasets/tapping.csv',
-            'datasets/double_tapping.csv'
+            'datasets/double_tapping.csv',
+            'datasets/slapping.csv'
         ]
 
         datasets = list(map(lambda ds: kiki.detection.get_resource_path(ds), datasets))
@@ -25,9 +26,10 @@ class TestPretrainedModel(unittest.TestCase):
         data_dummies = pd.get_dummies(data['Label'])
         data = pd.concat([data, data_dummies], axis=1)
         data.drop('Label', inplace=True, axis=1)
+        features = 6
 
         # separate labels from data for the test set
-        self.x_validation = data.loc[:, 'A':'F'].to_numpy().reshape((-1, 11, 6)) / 4095
+        self.x_validation = data.loc[:, 'A':'F'].to_numpy().reshape((-1, 11, features)) / 4095
         self.y_validation = data.drop(list('ABCDEF'), axis=1)[(data.index + 1) % 11 == 0].to_numpy()
         self.samples = self.y_validation.shape[0]
 

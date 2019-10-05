@@ -20,6 +20,21 @@ def get_resource_path(relative_path):
     FILENAME_PATH = pkg_resources.resource_filename(PACKAGE_NAME, relative_path)
     return FILENAME_PATH
 
+def save_trained_model(model_path, model):
+    """
+    Save a trained model to disk.
+
+    :param model_path: A relative/absolute path to the output model. Must not
+    include and extension because there are 2 files written to disk: a json and an h5.
+    I.e: "output/generic_model".
+    :param model: The actual trained keras.models.Model object.
+    :return: Nothing.
+    """
+    json = model.to_json(indent=2)
+    with open(model_path + '.json', 'w') as json_file:
+        json_file.write(json)
+    model.save_weights(model_path + '.h5')
+
 def load_pretrained_model(model_path, inpackage_data=False):
     """
     Load a pre-trained model.

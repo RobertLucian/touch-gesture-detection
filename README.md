@@ -25,6 +25,8 @@ pip install --editable .
 `kiki.detection.get_resource_path` - function to get the absolute file path
 of a file that resides in the `kiki` package. Must use a relative path for it.
 
+`kiki.detection.save_trained_model` - function to save a model and its weights to the disk.
+
 `kiki.detection.load_pretrained_model` - function to load a pre-trained model.
 Can specify whether the given path to the dataset is for a in-packaged model 
 or just another that's coming out of it.
@@ -44,7 +46,7 @@ Within the package, there are a couple of datasets included:
 * `datasets/tapping.csv`
 * `datasets/double_tapping.csv`
 * `datasets/hitting.csv` - currently empty
-* `datasets/slapping.csv` - currently empty
+* `datasets/slapping.csv`
 * `datasets/generated_dataset.csv`
 
 Each one of these datasets can be opened up this way
@@ -60,7 +62,7 @@ df = pd.read_csv(file)
 from all the other non-empty datasets. Practically, it was generated
 by iteratively altering the values from each sample by up to 15%. This should
 provide enough variation to prove the point. All samples are shuffled. There are
- 34000 samples in total, each one of them having 6 features and 11 time steps. 
+ 36200 samples in total, each one of them having 6 features and 11 time steps. 
  [kiki/datasets/data_generator.py](kiki/datasets/data_generator.py) was used to generate
  all this data. This script is not included in the package though.
  
